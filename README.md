@@ -13,6 +13,7 @@ A simple development server for DoneJS projects.
   - <code>[-t, --proxy-to](#-t---proxy-to)</code>
   - <code>[--proxy-no-cert-check](#--proxy-no-cert-check)</code>
   - <code>[-d, --develop](#-d---develop)</code>
+  - <code>[-s, --static](#-s--static)</code>
   - <code>[--timeout](#--timeout)</code>
   - <code>[--debug](#--debug)</code>
 
@@ -58,6 +59,18 @@ Turn off SSL certificate verification.
 ### -d, --develop
 
 Start a [live-reload](http://stealjs.com/docs/steal.live-reload.html) server so any code changes will be reflected immediately.
+
+### -s, --static
+
+Only serve static files, do not perform server-side rendering. Notably this is useful when debugging an issue in the app.
+
+### --auth-cookie
+
+Specifies the name of a cookie that [done-ssr](https://github.com/donejs/done-ssr#options) will use to enable JavaScript Web Token (JWT) auth.
+
+### --auth-domains
+
+A comma-separated string of domain names that are authorized to receive the JWT token.  Required if `--auth-cookie` is used.
 
 ### --timeout
 
