@@ -113,4 +113,20 @@ describe('done-serve server', function() {
 			});
 		});
 	});
+
+	it('serves a custom error page in static mode', function(done) {
+		var server = serve({
+			path: path.join(__dirname),
+			static: true,
+			errorPage: path.join('test', 'tests', 'error-page.html')
+		}).listen(8891);
+
+		server.on('listening', function() {
+			request('http://localhost:8891/not-a-real-page', function(err, res, body) {
+				assert.ok(res.statusCode === 200);
+				assert.equal(body, 'This is the error page!');
+				server.close(done);
+			});
+		});
+	});
 });
