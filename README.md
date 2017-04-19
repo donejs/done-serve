@@ -14,6 +14,7 @@ A simple development server for DoneJS projects.
   - <code>[--proxy-no-cert-check](#--proxy-no-cert-check)</code>
   - <code>[-d, --develop](#-d---develop)</code>
   - <code>[-s, --static](#-s--static)</code>
+  - <code>[--error-page](#--error-page)</code>
   - <code>[--timeout](#--timeout)</code>
   - <code>[--debug](#--debug)</code>
 
@@ -63,6 +64,10 @@ Start a [live-reload](http://stealjs.com/docs/steal.live-reload.html) server so 
 ### -s, --static
 
 Only serve static files, do not perform server-side rendering. Notably this is useful when debugging an issue in the app.
+
+### --error-page <filename>
+
+With the `--static` flag set, set an HTML page that should be sent instead of the normal error page. This is useful when you want to use Pushstate without server side rendering.
 
 ### --auth-cookie
 
