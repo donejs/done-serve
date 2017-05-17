@@ -17,6 +17,8 @@ A simple development server for DoneJS projects.
   - <code>[--error-page](#--error-page)</code>
   - <code>[--timeout](#--timeout)</code>
   - <code>[--debug](#--debug)</code>
+  - <code>[--key](#--key)</code>
+  - <code>[--cert](#--cert)</code>
 
 ## Install
 
@@ -88,6 +90,14 @@ Specify a timeout for server rendering. If the timeout is exceeded the server wi
 ### --debug
 
 Enable debug information in case of a timeout. The debug information will be appended to the document as a modal window and provides stack traces. Only use this flag during development.
+
+### --key, --cert
+
+Provide SSL key and certificate files. When providing these options both HTTP and HTTP2 servers will be set up, with automatic forwarding.
+
+```shell
+done-serve --static --key ~/.localhost-ssl/private.pem --cert ~/.localhost-ssl/cert.pem
+```
 
 ## Usage in Node
 
