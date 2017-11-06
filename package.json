@@ -1,6 +1,6 @@
 {
   "name": "done-serve",
-  "version": "1.5.0-beta.0",
+  "version": "1.5.0",
   "description": "DoneJS development server",
   "main": "lib/index.js",
   "directories": {
@@ -32,7 +32,7 @@
     "commander": "^2.8.1",
     "compression": "^1.6.1",
     "debug": "^2.6.3",
-    "done-ssr-middleware": "^1.2.0-beta.0",
+    "done-ssr-middleware": "^1.2.0",
     "express": "^4.13.4",
     "http-proxy": "^1.13.2",
     "infanticide": "^1.0.1",
