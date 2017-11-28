@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/donejs/done-serve#readme",
   "dependencies": {
-    "commander": "^2.8.1",
+    "commander": "^2.12.2",
     "compression": "^1.6.1",
     "debug": "^2.6.3",
     "done-ssr-middleware": "^1.2.0",
