@@ -1,7 +1,14 @@
-var Map = require("can-map");
+var DefineMap = require("can-define/map/map");
 
-module.exports = Map.extend({
+module.exports = DefineMap.extend({
+	param: "string",
+	err: "boolean",
+	statusMessage: {
+		type: "string",
+		serialize: false
+	},
 	throwError: function() {
-		throw Error('Something went wrong');
+		console.log("OH NO ERROR");
+		throw Error("Something went wrong");
 	}
 });
