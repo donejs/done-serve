@@ -42,7 +42,7 @@
     "can-component": "^3.0.4",
     "can-event": "^3.7.4",
     "can-list": "^3.2.1",
-    "can-map": "^3.0.4",
+    "can-map": "^4.0.0",
     "can-map-define": "^3.0.2",
     "can-route": "^3.0.6",
     "can-route-pushstate": "^3.0.1",
