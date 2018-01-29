@@ -39,7 +39,7 @@
     "donejs-spdy": "^3.4.7"
   },
   "devDependencies": {
-    "can-component": "^3.0.4",
+    "can-component": "^4.0.0",
     "can-event": "^3.7.4",
     "can-list": "^3.2.1",
     "can-map": "^3.0.4",
