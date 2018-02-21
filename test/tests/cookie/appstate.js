@@ -1,30 +1,26 @@
-var Map = require("can-map");
-
-require("can-map-define");
+var DefineMap = require("can-define/map/map");
 require("can-route");
 
-module.exports = Map.extend({
-	define: {
-		xhrResponse: {
-			get: function(last, set) {
-				var xhr = new XMLHttpRequest();
+module.exports = DefineMap.extend({
+	xhrResponse: {
+		get: function(last, resolve) {
+			var xhr = new XMLHttpRequest();
 
-				xhr.addEventListener("load", function() {
-					set( this.responseText );
-				});
-				xhr.addEventListener("error", function() {
-					console.log( "err", this, arguments );
-				});
+			xhr.addEventListener("load", function() {
+				resolve( this.responseText );
+			});
+			xhr.addEventListener("error", function() {
+				console.log( "err", this, arguments );
+			});
 
-				xhr.open("GET", "http://www.example.org/session");
-				xhr.send();
-			}
-		},
-		cookie: {
-			get: function ( last, set ) {
-				document.cookie = "newCookieKey=newCookieValue";
-				set( document.cookie );
-			}
+			xhr.open("GET", "http://www.example.org/session");
+			xhr.send();
+		}
+	},
+	cookie: {
+		get: function ( last, resolve ) {
+			document.cookie = "newCookieKey=newCookieValue";
+			resolve( document.cookie );
 		}
 	}
 });

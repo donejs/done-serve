@@ -1,9 +1,9 @@
 <div id="orders">
-{{#each orders}}
-	<div>order {{%index}}</div>
+{{#each(orders)}}
+	<div>order {{scope.index}}</div>
 {{/each}}
 </div>
 
-{{#if showTotals}}
-	<div id='totals'>{{totals}}</div>
+{{#if(showTotals)}}
+	<div id="totals">{{totals}}</div>
 {{/if}}

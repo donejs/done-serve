@@ -22,7 +22,7 @@ describe("done-serve timeout", function() {
 		server.on('listening', function(){
 			// Make an initial request so that steal is preloaded
 			request("http://localhost:5050/slow", function(err, res, body){
-				setTimeout(done, isCI ? 10000 : 1000);
+				setTimeout(done, isCI ? 20000 : 5000);
 			});
 		});
 	});
