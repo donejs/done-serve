@@ -1,8 +1,9 @@
-[![Build Status](https://travis-ci.org/donejs/done-serve.svg?branch=master)](https://travis-ci.org/donejs/done-serve)
-[![npm version](https://badge.fury.io/js/done-serve.svg)](http://badge.fury.io/js/done-serve)
-
 # done-serve
 
+[![Join the chat at https://gitter.im/donejs/donejs](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/donejs/donejs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/donejs/done-serve/blob/master/LICENSE.md)
+[![npm version](https://badge.fury.io/js/done-serve.svg)](http://badge.fury.io/js/done-serve)
+[![Build Status](https://travis-ci.org/donejs/done-serve.svg?branch=master)](https://travis-ci.org/donejs/done-serve)
 [![Greenkeeper badge](https://badges.greenkeeper.io/donejs/done-serve.svg)](https://greenkeeper.io/)
 
 A simple development server for DoneJS projects.
@@ -21,7 +22,7 @@ A simple development server for DoneJS projects.
   - <code>[--debug](#--debug)</code>
   - <code>[--key](#--key)</code>
   - <code>[--cert](#--cert)</code>
-  - <code>[--strategy](#--strategy]</code>
+  - <code>[--strategy](#--strategy)</code>
 
 ## Install
 
@@ -121,6 +122,14 @@ path: "path/to/dir"
 });
 ```
 
+## Changelog
+
+See the [latest releases on GitHub](https://github.com/donejs/done-serve/releases).
+
+## Contributing
+
+The [DoneJS contribution guide](https://donejs.com/contributing.html) has information on getting help, reporting bugs, developing locally, and more.
+
 ## License
 
-MIT
+[MIT](https://github.com/donejs/done-serve/blob/master/LICENSE.md)
