@@ -33,10 +33,11 @@
     "compression": "^1.6.1",
     "debug": "^2.6.3",
     "done-ssr-middleware": "^2.0.0",
+    "donejs-error-format": "^1.0.0",
+    "donejs-spdy": "^3.4.7",
     "express": "^4.13.4",
     "http-proxy": "^1.13.2",
-    "infanticide": "^1.0.1",
-    "donejs-spdy": "^3.4.7"
+    "infanticide": "^1.0.1"
   },
   "devDependencies": {
     "can-component": "^4.0.0",

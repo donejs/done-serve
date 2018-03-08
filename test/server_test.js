@@ -16,7 +16,8 @@ describe('done-serve server', function() {
 		server = serve({
 			path: path.join(__dirname, 'tests'),
 			proxy: 'http://localhost:6060',
-			proxyTo: 'testing'
+			proxyTo: 'testing',
+			logErrors: false
 		}).listen(5050);
 
 		other = http.createServer(function(req, res) {
