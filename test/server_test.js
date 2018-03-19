@@ -17,7 +17,8 @@ describe('done-serve server', function() {
 			path: path.join(__dirname, 'tests'),
 			proxy: 'http://localhost:6060',
 			proxyTo: 'testing',
-			logErrors: false
+			logErrors: false,
+			liveReload: true
 		}).listen(5050);
 
 		other = http.createServer(function(req, res) {
@@ -97,6 +98,13 @@ describe('done-serve server', function() {
 		request('http://localhost:5050/?err=true', function(err, res, body) {
 			assert.equal(res.statusCode, 500);
 			assert.ok(/Something went wrong/.test(body), 'Got error message');
+			done();
+		});
+	});
+
+	it('Error page connects to live-reload',function(done) {
+		request('http://localhost:5050/?err=true', function(err, res, body) {
+			assert.ok(/id="live-reload"/.test(body), "live-reload script included");
 			done();
 		});
 	});
