@@ -40,7 +40,7 @@
     "kill-on-exit": "^1.2.0"
   },
   "devDependencies": {
-    "can-component": "^4.0.0",
+    "can-component": "4.0.8",
     "can-event": "^3.7.4",
     "can-define": "^2.0.0",
     "can-route": "^4.0.0",
