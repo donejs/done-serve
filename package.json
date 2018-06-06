@@ -32,7 +32,7 @@
     "commander": "^2.8.1",
     "compression": "^1.6.1",
     "debug": "^2.6.3",
-    "done-ssr-middleware": "^2.0.0",
+    "done-ssr-middleware": "^3.0.0-pre.0",
     "donejs-error-format": "^1.2.0",
     "donejs-spdy": "^3.4.7",
     "express": "^4.13.4",
