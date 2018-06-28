@@ -55,7 +55,7 @@
     "request": "^2.69.0",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
-    "spawn-mochas": "^1.1.0",
+    "spawn-mochas": "^2.0.0",
     "steal-css": "^1.1.1",
     "steal-tools": "^1.0.1",
     "testdouble": "^3.0.0"
