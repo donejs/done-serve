@@ -202,4 +202,22 @@ describe('done-serve server', function() {
 			});
 		});
 	});
+
+	it('serves a directory listing in static mode', function(done) {
+		var server = serve({
+			path: path.join(__dirname),
+			static: true,
+		}).listen(8891);
+
+		server.on('listening', function() {
+			request('http://localhost:8891/', function(err, res, body) {
+				assert.ok(res.statusCode === 200);
+
+				assert.ok(/server_test\.js/.test(body), 'Got body');
+
+				server.close(done);
+			});
+		});
+	});
+
 });
