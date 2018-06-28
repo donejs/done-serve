@@ -37,7 +37,8 @@
     "donejs-spdy": "^3.4.7",
     "express": "^4.13.4",
     "http-proxy": "^1.13.2",
-    "kill-on-exit": "^1.2.0"
+    "kill-on-exit": "^1.2.0",
+    "serve-index": "^1.9.1"
   },
   "devDependencies": {
     "can-component": "^4.0.0",
