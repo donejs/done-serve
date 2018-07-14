@@ -46,7 +46,7 @@
     "can-define": "^2.0.0",
     "can-route": "^4.0.0",
     "can-route-pushstate": "^4.0.0",
-    "copy-dir": "0.0.8",
+    "copy-dir": "0.4.0",
     "done-autorender": "^2.0.0",
     "is-ci": "^1.0.10",
     "jquery": "2.x - 3.x",
