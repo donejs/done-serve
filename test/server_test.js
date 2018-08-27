@@ -22,8 +22,15 @@ describe('done-serve server', function() {
 		}).listen(5050);
 
 		other = http.createServer(function(req, res) {
-			res.writeHead(200, {'Content-Type': 'text/plain'});
-			res.end('Other server\n');
+			if(req.url === '/stuff.ndjson') {
+				res.writeHead(200, {'Content-Type': 'application/x-ndjson'});
+				res.write('{"row": "one"}\n');
+				res.write('{"row": "two"}');
+				res.end();
+			} else {
+				res.writeHead(200, {'Content-Type': 'text/plain'});
+				res.end('Other server\n');
+			}
 		}).listen(6060);
 
 		io = socketio().listen(other);
@@ -217,6 +224,23 @@ describe('done-serve server', function() {
 
 				server.close(done);
 			});
+		});
+	});
+
+	it('does not compress application/x-ndjson', function(done) {
+		var options = {
+			url: 'http://localhost:5050/testing/stuff.ndjson',
+			headers: {
+				'accept': '*/*',
+				'accept-encoding': 'gzip, deflate, br'
+			}
+		};
+
+		request(options, function(err, res, body) {
+			var h = res.headers;
+			assert.equal(h['content-type'], 'application/x-ndjson', 'Set from the proxy');
+			assert.equal(h['content-encoding'], undefined, 'gzip not set');
+			done();
 		});
 	});
 
