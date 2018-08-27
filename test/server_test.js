@@ -1,5 +1,6 @@
 var assert = require('assert');
 var path = require('path');
+var helpers = require('./helpers');
 var http = require('http');
 var request = require('request');
 var socketio = require('socket.io');
@@ -125,6 +126,22 @@ describe('done-serve server', function() {
 		server.on('listening', function() {
 			request('http://localhost:8889/server_test.js', function(err, res, body) {
 				assert.ok(res.statusCode === 200);
+				server.close(done);
+			});
+		});
+	});
+
+	it('shows a nice 404 message when in static mode', function(done) {
+		var server = serve({
+			path: path.join(__dirname),
+			static: true
+		}).listen(8889);
+
+		var undo = helpers.willError(/404/);
+
+		server.on('listening', function() {
+			request('http://localhost:8889/not-exists', function(err) {
+				assert.equal(undo(), 1, "There was a 404 message");
 				server.close(done);
 			});
 		});
