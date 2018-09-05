@@ -57,26 +57,25 @@ function runTests(mode) {
 			done();
 		});
 
-		it.only('starts SSR with package.json settings and outputs page with 200 status', async function() {
+		it('starts SSR with package.json settings and outputs page with 200 status', async function() {
 			let [err, res] = await request('http://localhost:5050');
 
 			assert.equal(res.statusCode, 200);
 			assert.ok(/You are home/.test(res.body), 'Got body');
 		});
 
-		it('route errors send 404 status', function(done) {
-			request('http://localhost:5050/invalid/route', function(err, res, body) {
-				assert.equal(res.statusCode, 404);
-				assert.ok(/Error: Not found/.test(body), 'Got body');
-				done();
-			});
+		it('route errors send 404 status', async function() {
+			let [err, res] = await request('http://localhost:5050/invalid/route');
+			assert.equal(res.statusCode, 404);
+			assert.ok(/Error: Not found/.test(res.body), 'Got body');
 		});
 
-		it('proxies to other servers on a path', function(done) {
-			request('http://localhost:5050/testing/', function(err, res, body) {
-				assert.equal(body, 'Other server\n', 'Got message from other server');
-				done();
-			});
+		it.only('proxies to other servers on a path', async function() {
+			let [err, res] = await request('http://localhost:5050/testing/');
+
+			debugger;
+
+			assert.equal(res.body, 'Other server\n', 'Got message from other server');
 		});
 
 		it('proxies Socket.io websockets', function(done) {

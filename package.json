@@ -39,6 +39,7 @@
     "express": "^4.13.4",
     "http-proxy": "^1.13.2",
     "kill-on-exit": "^1.2.0",
+    "path-to-regexp": "^2.4.0",
     "serve-index": "^1.9.1"
   },
   "devDependencies": {
