@@ -10,9 +10,11 @@ var serve = require('../lib/index');
 
 // Run the tests in both http and http2
 runTests("HTTP/2");
+//runTests("HTTP/1");
 
 function runTests(mode) {
 	const request = helpers.makeRequest(mode);
+	const createServerOptions = helpers.makeCreateServerOptions(mode);
 
 	describe('done-serve server - ' + mode, function() {
 		this.timeout(10000);
@@ -20,20 +22,13 @@ function runTests(mode) {
 		var server, other, io;
 
 		before(function(done) {
-			var serverOptions = {
+			server = serve(5050, createServerOptions({
 				path: path.join(__dirname, 'tests'),
 				proxy: 'http://localhost:6060',
 				proxyTo: 'testing',
 				logErrors: false,
 				liveReload: true
-			};
-
-			if(mode === 'HTTP/2') {
-				serverOptions.key = path.join(__dirname, "config", "key.pem");
-				serverOptions.cert = path.join(__dirname, "config", "cert.pem");
-			}
-
-			server = serve(5050, serverOptions);
+			}));
 
 			other = http.createServer(function(req, res) {
 				if(req.url === '/stuff.ndjson') {
@@ -121,17 +116,10 @@ function runTests(mode) {
 		});
 
 		it('can serve only static content', function(done) {
-			let serverOptions = {
+			var server = serve(8889, createServerOptions({
 				path: path.join(__dirname),
 				static: true
-			};
-
-			if(mode === 'HTTP/2') {
-				serverOptions.key = path.join(__dirname, "config", "key.pem");
-				serverOptions.cert = path.join(__dirname, "config", "cert.pem");
-			}
-
-			var server = serve(8889, serverOptions);
+			}));
 
 			server.on('listening', async function() {
 				let [err, res] = await request('http://localhost:8889/server_test.js');
@@ -141,17 +129,10 @@ function runTests(mode) {
 		});
 
 		it('shows a nice 404 message when in static mode', function(done) {
-			let serverOptions = {
+			var server = serve(8889, createServerOptions({
 				path: path.join(__dirname),
 				static: true
-			};
-
-			if(mode === 'HTTP/2') {
-				serverOptions.key = path.join(__dirname, "config", "key.pem");
-				serverOptions.cert = path.join(__dirname, "config", "cert.pem");
-			}
-
-			var server = serve(8889, serverOptions);
+			}));
 
 			var undo = helpers.willError(/404/);
 
@@ -162,104 +143,96 @@ function runTests(mode) {
 			});
 		});
 
-		it.only('serves development.html when there\'s no index.html and NODE_ENV is not set', function(done) {
-			var server = serve({
+		it('serves development.html when there\'s no index.html and NODE_ENV is not set', function(done) {
+			var server = serve(8889, createServerOptions({
 				path: path.join(__dirname, 'tests', 'pushstate'),
 				static: true
-			}).listen(8889);
+			}));
 
-			server.on('listening', function() {
-				request('http://localhost:8889', function(err, res, body) {
-					assert(body === 'Development');
-					assert.ok(res.statusCode === 200);
-					server.close(done);
-				});
+			server.on('listening', async function() {
+				let [err, res] = await request('http://localhost:8889');
+				assert(res.body === 'Development');
+				assert.ok(res.statusCode === 200);
+				server.close(done);
 			});
 		});
 
 		it('serves production.html when NODE_ENV is not development', function(done) {
 			process.env.NODE_ENV = 'ci';
-			var server = serve({
+			var server = serve(8889, createServerOptions({
 				path: path.join(__dirname, 'tests', 'pushstate'),
 				static: true
-			}).listen(8889);
+			}));
 
-			server.on('listening', function() {
-				request('http://localhost:8889', function(err, res, body) {
-					assert(body === 'Production');
-					assert.ok(res.statusCode === 200);
-					delete process.env.NODE_ENV;
-					server.close(done);
-				});
+			server.on('listening', async function() {
+				let [err, res] = await request('http://localhost:8889');
+				assert(res.body === 'Production');
+				assert.ok(res.statusCode === 200);
+				delete process.env.NODE_ENV;
+				server.close(done);
 			});
 		});
 
 		it('serves qa.html when NODE_ENV is qa', function(done) {
 			process.env.NODE_ENV = 'qa';
-			var server = serve({
+			var server = serve(8889, createServerOptions({
 				path: path.join(__dirname, 'tests', 'pushstate'),
 				static: true
-			}).listen(8889);
+			}));
 
-			server.on('listening', function() {
-				request('http://localhost:8889', function(err, res, body) {
-					assert(body === 'QA');
-					assert.ok(res.statusCode === 200);
-					delete process.env.NODE_ENV;
-					server.close(done);
-				});
+			server.on('listening', async function() {
+				let [err, res] = await request('http://localhost:8889');
+				assert(res.body === 'QA');
+				assert.ok(res.statusCode === 200);
+				delete process.env.NODE_ENV;
+				server.close(done);
 			});
 		});
 
 		it('serves development.html for a non-matched static route (pushstate route)', function(done) {
-			var server = serve({
+			var server = serve(8889, createServerOptions({
 				path: path.join(__dirname, 'tests', 'pushstate'),
 				static: true
-			}).listen(8889);
+			}));
 
-			server.on('listening', function() {
-				request('http://localhost:8889/users', function(err, res, body) {
-					assert(body === 'Development');
-					assert.ok(res.statusCode === 200);
-					server.close(done);
-				});
+			server.on('listening', async function() {
+				let [err, res] = await request('http://localhost:8889/users');
+				assert(res.body === 'Development');
+				assert.ok(res.statusCode === 200);
+				server.close(done);
 			});
 		});
 
 		it('serves a custom error page in static mode', function(done) {
-			var server = serve({
+			var server = serve(8891, createServerOptions({
 				path: path.join(__dirname),
 				static: true,
 				errorPage: path.join('test', 'tests', 'error-page.html')
-			}).listen(8891);
+			}));
 
-			server.on('listening', function() {
-				request('http://localhost:8891/not-a-real-page', function(err, res, body) {
-					assert.ok(res.statusCode === 200);
-					assert.equal(body, 'This is the error page!');
-					server.close(done);
-				});
+			server.on('listening', async function() {
+				let [err, res] = await request('http://localhost:8891/not-a-real-page');
+				assert.ok(res.statusCode === 200);
+				assert.equal(res.body, 'This is the error page!');
+				server.close(done);
 			});
 		});
 
 		it('serves a directory listing in static mode', function(done) {
-			var server = serve({
+			var server = serve(8891, createServerOptions({
 				path: path.join(__dirname),
 				static: true,
-			}).listen(8891);
+			}));
 
-			server.on('listening', function() {
-				request('http://localhost:8891/', function(err, res, body) {
-					assert.ok(res.statusCode === 200);
-
-					assert.ok(/server_test\.js/.test(body), 'Got body');
-
-					server.close(done);
-				});
+			server.on('listening', async function() {
+				let [err, res] = await request('http://localhost:8891/');
+				assert.ok(res.statusCode === 200);
+				assert.ok(/server_test\.js/.test(res.body), 'Got body');
+				server.close(done);
 			});
 		});
 
-		it('does not compress application/x-ndjson', function(done) {
+		it('does not compress application/x-ndjson', async function() {
 			var options = {
 				url: 'http://localhost:5050/testing/stuff.ndjson',
 				headers: {
@@ -268,12 +241,11 @@ function runTests(mode) {
 				}
 			};
 
-			request(options, function(err, res, body) {
-				var h = res.headers;
-				assert.equal(h['content-type'], 'application/x-ndjson', 'Set from the proxy');
-				assert.equal(h['content-encoding'], undefined, 'gzip not set');
-				done();
-			});
+			let [err, res] = await request(options);
+
+			var h = res.headers;
+			assert.equal(h['content-type'], 'application/x-ndjson', 'Set from the proxy');
+			assert.equal(h['content-encoding'], undefined, 'gzip not set');
 		});
 
 	});
