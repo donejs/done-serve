@@ -33,7 +33,7 @@ exports.makeCreateServerOptions = function(mode) {
 			});
 		}
 		return options;
-	}
+	};
 };
 
 exports.makeRequest = function(mode) {
@@ -108,6 +108,11 @@ function makeH1Request(urlObj, options) {
 		})
 		.on("error", error => {
 			resolve([error]);
-		})
+		});
 	});
 }
+
+exports.modes = {
+	H1: "HTTP/1",
+	H2: "HTTP/2"
+};

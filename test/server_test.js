@@ -1,8 +1,8 @@
+// jshint ignore: start
 var assert = require('assert');
 var path = require('path');
 var helpers = require('./helpers');
 var http = require('http');
-//var request = require('request');
 var socketio = require('socket.io');
 var socketClient = require('socket.io-client');
 
