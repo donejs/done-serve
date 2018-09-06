@@ -70,11 +70,8 @@ function runTests(mode) {
 			assert.ok(/Error: Not found/.test(res.body), 'Got body');
 		});
 
-		it.only('proxies to other servers on a path', async function() {
+		it('proxies to other servers on a path', async function() {
 			let [err, res] = await request('http://localhost:5050/testing/');
-
-			debugger;
-
 			assert.equal(res.body, 'Other server\n', 'Got message from other server');
 		});
 
@@ -106,60 +103,66 @@ function runTests(mode) {
 			});
 		});
 
-		it('server should parse URL parameters (#52)', function(done) {
-			request('http://localhost:5050/test?param=paramtest', function(err, res, body) {
-				assert.equal(res.statusCode, 200);
-				assert.ok(/paramtest/.test(body), 'Param printed in body');
-				done();
-			});
+		it('server should parse URL parameters (#52)', async function() {
+			let [err, res] = await request('http://localhost:5050/test?param=paramtest')
+			assert.equal(res.statusCode, 200);
+			assert.ok(/paramtest/.test(res.body), 'Param printed in body');
 		});
 
-		it('errors when rendering an app trigger Express error handler (#58)',function(done) {
-			request('http://localhost:5050/?err=true', function(err, res, body) {
-				assert.equal(res.statusCode, 500);
-				assert.ok(/Something went wrong/.test(body), 'Got error message');
-				done();
-			});
+		it('errors when rendering an app trigger Express error handler (#58)', async function() {
+			let [err, res] = await request('http://localhost:5050/?err=true')
+			assert.equal(res.statusCode, 500);
+			assert.ok(/Something went wrong/.test(res.body), 'Got error message');
 		});
 
-		it('Error page connects to live-reload',function(done) {
-			request('http://localhost:5050/?err=true', function(err, res, body) {
-				assert.ok(/id="live-reload"/.test(body), "live-reload script included");
-				done();
-			});
+		it('Error page connects to live-reload', async function() {
+			let [err, res] = await request('http://localhost:5050/?err=true');
+			assert.ok(/id="live-reload"/.test(res.body), "live-reload script included");
 		});
 
 		it('can serve only static content', function(done) {
-			var server = serve({
+			let serverOptions = {
 				path: path.join(__dirname),
 				static: true
-			}).listen(8889);
+			};
 
-			server.on('listening', function() {
-				request('http://localhost:8889/server_test.js', function(err, res, body) {
-					assert.ok(res.statusCode === 200);
-					server.close(done);
-				});
+			if(mode === 'HTTP/2') {
+				serverOptions.key = path.join(__dirname, "config", "key.pem");
+				serverOptions.cert = path.join(__dirname, "config", "cert.pem");
+			}
+
+			var server = serve(8889, serverOptions);
+
+			server.on('listening', async function() {
+				let [err, res] = await request('http://localhost:8889/server_test.js');
+				assert.ok(res.statusCode === 200);
+				server.close(done);
 			});
 		});
 
 		it('shows a nice 404 message when in static mode', function(done) {
-			var server = serve({
+			let serverOptions = {
 				path: path.join(__dirname),
 				static: true
-			}).listen(8889);
+			};
+
+			if(mode === 'HTTP/2') {
+				serverOptions.key = path.join(__dirname, "config", "key.pem");
+				serverOptions.cert = path.join(__dirname, "config", "cert.pem");
+			}
+
+			var server = serve(8889, serverOptions);
 
 			var undo = helpers.willError(/404/);
 
-			server.on('listening', function() {
-				request('http://localhost:8889/not-exists', function(err) {
-					assert.equal(undo(), 1, "There was a 404 message");
-					server.close(done);
-				});
+			server.on('listening', async function() {
+				let [err, res] = await request('http://localhost:8889/not-exists');
+				assert.equal(undo(), 1, "There was a 404 message");
+				server.close(done);
 			});
 		});
 
-		it('serves development.html when there\'s no index.html and NODE_ENV is not set', function(done) {
+		it.only('serves development.html when there\'s no index.html and NODE_ENV is not set', function(done) {
 			var server = serve({
 				path: path.join(__dirname, 'tests', 'pushstate'),
 				static: true

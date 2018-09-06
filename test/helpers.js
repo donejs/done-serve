@@ -30,9 +30,8 @@ exports.makeRequest = function(mode) {
 
 		if(mode === "HTTP/2") {
 			urlObj.protocol = "https:";
-			urlObj.port = 5052;
 
-			let pth = urlObj.pathname;
+			let pth = urlObj.pathname + urlObj.search;
 			urlObj.pathname = "";
 
 			let h2 = require("http2");
@@ -59,6 +58,7 @@ exports.makeRequest = function(mode) {
 				req.on("data", chunk => { response.body += chunk; });
 
 				req.on("end", () => {
+					client.close();
 					resolve([error, response]);
 				});
 			});
