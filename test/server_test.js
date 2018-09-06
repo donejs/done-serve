@@ -10,7 +10,7 @@ var serve = require('../lib/index');
 
 // Run the tests in both http and http2
 runTests("HTTP/2");
-//runTests("HTTP/1");
+runTests("HTTP/1");
 
 function runTests(mode) {
 	const request = helpers.makeRequest(mode);
@@ -48,13 +48,13 @@ function runTests(mode) {
 		});
 
 		after(function(done) {
-			//server.close(done);
-			done();
+			server.close(function(){
+				other.close(done);
+			});
 		});
 
 		it('starts SSR with package.json settings and outputs page with 200 status', async function() {
 			let [err, res] = await request('http://localhost:5050');
-
 			assert.equal(res.statusCode, 200);
 			assert.ok(/You are home/.test(res.body), 'Got body');
 		});
