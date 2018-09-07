@@ -1,46 +1,51 @@
-var assert = require('assert');
-var path = require('path');
-var request = require('request');
-var nock = require( "nock" );
+// jshint ignore: start
+const assert = require("assert");
+const helpers = require("./helpers");
+const path = require('path');
+const nock = require("nock");
+const serve = require('../lib/index');
 
-var serve = require('../lib/index');
+runTests(helpers.modes.H2);
 
-describe("done-serve cookie_server", function() {
-	this.timeout(10000);
+function runTests(mode) {
+	const request = helpers.makeRequest(mode);
+	const createServerOptions = helpers.makeCreateServerOptions(mode);
 
-	var scope;
-	var server;
+	describe("done-serve cookie_server - " + mode, function() {
+		this.timeout(10000);
 
-	before(function(done) {
-		server = serve({
-			path: path.join(__dirname, 'tests'),
-			main: "cookie/index.stache!done-autorender"
-		}).listen(5050);
+		var scope;
+		var server;
 
-		scope = nock("http://www.example.org").get( "/session" ).delay( 20 ).reply(
-			function ( uri, requestBody ) {
-				return [
-					200,
-					"request body",
-					{ "set-cookie": "ajaxResDurringSSR=setsACookie" }
-				];
-			}
-		);
+		before(function(done) {
+			server = serve(5050, createServerOptions({
+				path: path.join(__dirname, 'tests'),
+				main: "cookie/index.stache!done-autorender"
+			}));
 
-		server.on('listening', done);
-	});
+			scope = nock("http://www.example.org").get( "/session" ).delay( 20 ).reply(
+				function ( uri, requestBody ) {
+					return [
+						200,
+						"request body",
+						{ "set-cookie": "ajaxResDurringSSR=setsACookie" }
+					];
+				}
+			);
 
-	after(function(done) {
-		nock.restore();
-		server.close(done);
-	});
+			server.on('listening', done);
+		});
 
-	it.only('starts SSR with package.json settings and outputs page with 200 status', function(done) {
-		var j = request.jar();
-		request({ url: 'http://localhost:5050', jar: j }, function(err, res, body) {
-			var cookie_string = j.getCookieString( "http://localhost:5050/" );
-			assert.equal(cookie_string, "newCookieKey=newCookieValue; ajaxResDurringSSR=setsACookie", "Cookies created from ajax response during SSR are forwarded to the initial ssr response.");
-			done();
+		after(function(done) {
+			nock.restore();
+			server.close(done);
+		});
+
+		it('starts SSR with package.json settings and outputs page with 200 status', async function() {
+			let [err, res] = await request('http://localhost:5050');
+			let cookie = res.headers["set-cookie"];
+			assert.equal(cookie[0], "newCookieKey=newCookieValue; Path=/");
+			assert.equal(cookie[1], "ajaxResDurringSSR=setsACookie; Path=/");
 		});
 	});
-});
+}
