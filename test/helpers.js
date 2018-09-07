@@ -1,5 +1,7 @@
+/* jshint -W079 */
 const fs = require("fs");
 const path = require("path");
+const {URL} = require("url");
 
 function makeExpectation(name) {
 	return function(expr) {
