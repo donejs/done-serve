@@ -94,13 +94,38 @@ function makeH2Request(urlObj, options) {
 }
 
 function makeH1Request(urlObj, options) {
-	const http = require("http");
+	let http;
+	if(urlObj.protocol === "https:") {
+		http = require("https");
+	} else {
+		http = require("http");
+	}
+
 	let response = {body: ""};
 
 	return new Promise(resolve => {
-		http.get(urlObj.toString(), res => {
+		let options = {
+			hostname: urlObj.hostname,
+			port: Number(urlObj.port),
+			path: urlObj.pathname + urlObj.search,
+			method: 'GET'
+		};
+
+		if(urlObj.protocol === "https:") {
+			options.key = fs.readFileSync(path.join(__dirname, "config", "key.pem"));
+			options.cert = fs.readFileSync(path.join(__dirname, "config", "cert.pem"));
+			options.rejectUnauthorized = false;
+		}
+
+		http.get(options, res => {
 			response.statusCode = res.statusCode;
 			response.headers = res.headers;
+
+			if(response.statusCode === 301) {
+				let urlObj = new URL(response.headers.location);
+				resolve(makeH1Request(urlObj, options));
+				return;
+			}
 
 			res.setEncoding("utf8");
 			res.on("data", chunk => { response.body += chunk; });
