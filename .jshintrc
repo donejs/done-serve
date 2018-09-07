@@ -16,6 +16,7 @@
 	},
 	"curly": true,
 	"eqeqeq": true,
+	"esversion": 6,
 	"freeze": true,
 	"indent": 2,
 	"latedef": false,

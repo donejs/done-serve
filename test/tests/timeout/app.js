@@ -20,4 +20,4 @@ module.exports = DefineMap.extend({
 	}
 });
 
-route("{page}");
+route.register("{page}");

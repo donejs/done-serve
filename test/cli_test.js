@@ -9,7 +9,7 @@ function node(args){
 }
 
 function serverExpects(opts){
-	var server = td.replace("../lib/index");
+	var server = td.replace("../lib/app");
 	td.when(server(td.matchers.contains(opts)))
 		.thenReturn({
 			listen: function(){
@@ -107,9 +107,9 @@ describe("done-serve cli", function(){
 
 			cli.run();
 		});
-		
+
 		it("Sets the NODE_ENV to development", function() {
-			cli.program.parse(node(["--develop"]));			
+			cli.program.parse(node(["--develop"]));
 			cli.run();
 			assert(process.env.NODE_ENV === "development");
 		});
