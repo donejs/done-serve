@@ -49,7 +49,7 @@ function runTests(mode) {
 
 		after(function(done) {
 			server.close(function(){
-				other.close(done);
+				other.close(() => setTimeout(done, 1000));
 			});
 		});
 
