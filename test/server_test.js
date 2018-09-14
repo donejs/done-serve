@@ -48,9 +48,15 @@ function runTests(mode) {
 		});
 
 		after(function(done) {
-			server.close(function(){
-				other.close(() => setTimeout(done, 1000));
-			});
+			var closed = 0;
+			var onClose = function(){
+				closed++;
+				if(closed === 2) {
+					done();
+				}
+			}
+			server.close(onClose)
+			other.close(onClose)
 		});
 
 		it('starts SSR with package.json settings and outputs page with 200 status', async function() {
