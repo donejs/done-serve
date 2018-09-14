@@ -1,6 +1,6 @@
 {
   "name": "done-serve",
-  "version": "3.0.0-pre.2",
+  "version": "3.0.0-pre.3",
   "description": "DoneJS development server",
   "main": "lib/index.js",
   "directories": {
