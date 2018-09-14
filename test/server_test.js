@@ -54,7 +54,7 @@ function runTests(mode) {
 				if(closed === 2) {
 					done();
 				}
-			}
+			};
 			server.close(onClose)
 			other.close(onClose)
 		});
