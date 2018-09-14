@@ -9,8 +9,8 @@ var socketClient = require('socket.io-client');
 var serve = require('../lib/index');
 
 // Run the tests in both http and http2
-runTests("HTTP/2");
-runTests("HTTP/1");
+runTests(helpers.modes.H2);
+runTests(helpers.modes.H1);
 
 function runTests(mode) {
 	const request = helpers.makeRequest(mode);
@@ -48,9 +48,15 @@ function runTests(mode) {
 		});
 
 		after(function(done) {
-			server.close(function(){
-				other.close(done);
-			});
+			var closed = 0;
+			var onClose = function(){
+				closed++;
+				if(closed === 2) {
+					done();
+				}
+			};
+			server.close(onClose)
+			other.close(onClose)
 		});
 
 		it('starts SSR with package.json settings and outputs page with 200 status', async function() {
@@ -246,6 +252,13 @@ function runTests(mode) {
 			var h = res.headers;
 			assert.equal(h['content-type'], 'application/x-ndjson', 'Set from the proxy');
 			assert.equal(h['content-encoding'], undefined, 'gzip not set');
+		});
+
+		it('Accepts HTTP/1 connections', async function() {
+			const request = helpers.makeRequest(helpers.modes.H1);
+			let [err, res] = await request('http://localhost:5050');
+			assert.equal(res.statusCode, 200);
+			assert.ok(/You are home/.test(res.body), 'Got body');
 		});
 
 	});
