@@ -31,7 +31,7 @@
   "dependencies": {
     "commander": "^2.8.1",
     "compression": "^1.6.1",
-    "debug": "^2.6.3",
+    "debug": "^4.1.0",
     "done-ssr-middleware": "^2.0.0",
     "donejs-error-format": "^1.2.0",
     "donejs-spdy": "^3.4.7",
