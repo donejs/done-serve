@@ -41,7 +41,7 @@
     "serve-index": "^1.9.1"
   },
   "devDependencies": {
-    "can-component": "^4.0.0",
+    "can-component": "^4.4.5",
     "can-event": "^3.7.4",
     "can-define": "^2.0.0",
     "can-route": "^4.0.0",
