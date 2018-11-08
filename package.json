@@ -44,7 +44,7 @@
     "can-component": "^4.0.0",
     "can-event": "^3.7.4",
     "can-define": "^2.0.0",
-    "can-route": "^4.0.0",
+    "can-route": "^4.4.4",
     "can-route-pushstate": "^4.0.0",
     "copy-dir": "0.0.8",
     "done-autorender": "^2.0.0",
