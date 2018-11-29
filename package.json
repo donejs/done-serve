@@ -60,7 +60,7 @@
     "socket.io-client": "^2.1.1",
     "spawn-mochas": "^1.1.0",
     "steal-css": "^1.1.1",
-    "steal-tools": "^1.0.1",
+    "steal-tools": "^2.0.11",
     "testdouble": "^3.0.0"
   }
 }
