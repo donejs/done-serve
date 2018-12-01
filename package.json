@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "can-component": "^4.0.0",
-    "can-define": "^2.6.2",
+    "can-define": "^2.7.3",
     "can-event": "^3.7.4",
     "can-route": "^4.0.0",
     "can-route-pushstate": "^4.0.0",
