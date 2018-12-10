@@ -51,7 +51,7 @@
     "can-route": "^4.0.0",
     "can-route-pushstate": "^4.0.0",
     "copy-dir": "0.0.8",
-    "done-autorender": "^2.0.0",
+    "done-autorender": "^2.5.1",
     "is-ci": "^1.0.10",
     "jquery": "2.x - 3.x",
     "jshint": "^2.9.5",
