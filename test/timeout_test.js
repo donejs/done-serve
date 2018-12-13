@@ -2,7 +2,6 @@
 var assert = require("assert");
 var helpers = require("./helpers");
 var path = require("path");
-var request = require("request");
 var isCI = require("is-ci");
 
 var serve = require("../lib/index");
