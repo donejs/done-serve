@@ -3,7 +3,6 @@ var assert = require('assert');
 var path = require('path');
 const helpers = require("./helpers");
 var http = require('http');
-var request = require('request');
 var socketio = require('socket.io');
 var socketClient = require('socket.io-client');
 var serve = require('../lib/index');
