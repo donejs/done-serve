@@ -34,7 +34,7 @@
     "compression": "^1.6.1",
     "cookie": "^0.3.1",
     "cookie-signature": "^1.1.0",
-    "debug": "^2.6.3",
+    "debug": "^4.1.1",
     "done-ssr": "^3.0.0",
     "donejs-error-format": "^1.2.0",
     "http-proxy": "^1.13.2",
