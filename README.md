@@ -16,6 +16,8 @@ A simple development server for DoneJS projects.
   - <code>[-t, --proxy-to](#-t---proxy-to)</code>
   - <code>[--proxy-no-cert-check](#--proxy-no-cert-check)</code>
   - <code>[-d, --develop](#-d---develop)</code>
+  - <code>[-l, --no-live-reload](#-l---no-live-reload)</code>
+  - <code>[--live-reload-port](#--live-reload-port)</code>
   - <code>[-s, --static](#-s--static)</code>
   - <code>[--error-page](#--error-page)</code>
   - <code>[--timeout](#--timeout)</code>
@@ -70,6 +72,14 @@ Turn off SSL certificate verification.
 ### -d, --develop
 
 Start a [live-reload](http://stealjs.com/docs/steal.live-reload.html) server so any code changes will be reflected immediately.
+
+### -l, --no-live-reload
+
+Disable [live-reload](http://stealjs.com/docs/steal.live-reload.html) when used with the `--develop` option.
+
+### --live-reload-port
+
+Specify the port (a `Number`) to use for live-reload. The default port is specified in the [LiveReloadOptions](https://stealjs.com/docs/steal.live-reload.options.html) documentation.
 
 ### -s, --static
 
