@@ -37,7 +37,7 @@
     "debug": "^2.6.3",
     "done-ssr": "^3.0.0",
     "donejs-error-format": "^1.2.0",
-    "http-proxy": "^1.13.2",
+    "http-proxy": "1.17.0",
     "kill-on-exit": "^1.2.0",
     "path-to-regexp": "^2.4.0",
     "send": "^0.16.2",
