@@ -56,7 +56,7 @@
     "jquery": "2.x - 3.x",
     "jshint": "^2.9.5",
     "nock": "^9.0.11",
-    "socket.io": "^2.1.1",
+    "socket.io": "^2.3.0",
     "socket.io-client": "^2.1.1",
     "spawn-mochas": "^1.1.0",
     "steal-css": "^1.1.1",
