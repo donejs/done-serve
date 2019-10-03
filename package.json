@@ -49,7 +49,7 @@
     "can-define": "^2.6.2",
     "can-event": "^3.7.4",
     "can-route": "^4.0.0",
-    "can-route-pushstate": "^4.0.0",
+    "can-route-pushstate": "^6.0.0",
     "copy-dir": "0.0.8",
     "done-autorender": "^2.0.0",
     "is-ci": "^1.0.10",
