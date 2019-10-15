@@ -35,7 +35,7 @@
     "cookie": "^0.3.1",
     "cookie-signature": "^1.1.0",
     "debug": "^2.6.3",
-    "done-ssr": "^3.0.0",
+    "done-ssr": "^4.0.0-pre.0",
     "donejs-error-format": "^1.2.0",
     "http-proxy": "^1.13.2",
     "kill-on-exit": "^1.2.0",
@@ -45,13 +45,12 @@
     "serve-static": "^1.13.2"
   },
   "devDependencies": {
-    "can-component": "^4.0.0",
+    "can-component": "^5.0.0",
     "can-define": "^2.6.2",
-    "can-event": "^3.7.4",
-    "can-route": "^4.0.0",
-    "can-route-pushstate": "^4.0.0",
+    "can-route": "^5.0.0",
+    "can-route-pushstate": "^6.0.0",
     "copy-dir": "0.0.8",
-    "done-autorender": "^2.0.0",
+    "done-autorender": "^3.0.0-pre.0",
     "is-ci": "^1.0.10",
     "jquery": "2.x - 3.x",
     "jshint": "^2.9.5",
@@ -60,7 +59,7 @@
     "socket.io-client": "^2.1.1",
     "spawn-mochas": "^1.1.0",
     "steal-css": "^1.1.1",
-    "steal-tools": "^1.0.1",
+    "steal-tools": "^2.0.0",
     "testdouble": "^3.0.0"
   }
 }
