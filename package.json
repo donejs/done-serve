@@ -35,7 +35,7 @@
     "cookie": "^0.3.1",
     "cookie-signature": "^1.1.0",
     "debug": "^2.6.3",
-    "done-ssr": "^3.0.0",
+    "done-ssr": "3.2.11",
     "donejs-error-format": "^1.2.0",
     "http-proxy": "^1.13.2",
     "kill-on-exit": "^1.2.0",
