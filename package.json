@@ -52,7 +52,7 @@
     "can-route-pushstate": "^4.0.0",
     "copy-dir": "0.0.8",
     "done-autorender": "^2.0.0",
-    "is-ci": "^1.0.10",
+    "is-ci": "^2.0.0",
     "jquery": "2.x - 3.x",
     "jshint": "^2.9.5",
     "nock": "^9.0.11",
