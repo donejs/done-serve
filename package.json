@@ -61,6 +61,6 @@
     "spawn-mochas": "^1.1.0",
     "steal-css": "^1.1.1",
     "steal-tools": "^1.0.1",
-    "testdouble": "^3.0.0"
+    "testdouble": "3.12.5"
   }
 }
