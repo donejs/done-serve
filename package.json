@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/donejs/done-serve#readme",
   "dependencies": {
-    "chalk": "^2.4.1",
+    "chalk": "^4.0.0",
     "commander": "^2.8.1",
     "compression": "^1.6.1",
     "cookie": "^0.3.1",
